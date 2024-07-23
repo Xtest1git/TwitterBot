@@ -6,6 +6,7 @@ on:
     - cron: '0 11 * * *'  # 毎日11時に実行
     - cron: '0 17 * * *'  # 毎日17時に実行
     - cron: '0 23 * * *'  # 毎日23時に実行
+  workflow_dispatch:      # 手動トリガーを追加
 
 jobs:
   run-bot:
