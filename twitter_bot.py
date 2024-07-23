@@ -28,7 +28,7 @@ def post_to_twitter():
     try:
         media = api.media_upload(video_path, media_category='tweet_video')
         print("Media uploaded:", media.media_id_string)
-    except tweepy.TweepError as e:
+    except tweepy.TweepyException as e:
         print("Error uploading media:", e)
         return
 
@@ -36,7 +36,7 @@ def post_to_twitter():
     try:
         status1 = api.update_status(status=post['text1'], media_ids=[media.media_id_string])
         print("First tweet posted:", status1.id)
-    except tweepy.TweepError as e:
+    except tweepy.TweepyException as e:
         print("Error posting first tweet:", e)
         return
 
@@ -44,7 +44,7 @@ def post_to_twitter():
     try:
         api.update_status(status=post['text2'] + " " + post['link2'], in_reply_to_status_id=status1.id, auto_populate_reply_metadata=True)
         print("Reply tweet posted.")
-    except tweepy.TweepError as e:
+    except tweepy.TweepyException as e:
         print("Error posting reply tweet:", e)
 
 if __name__ == "__main__":
