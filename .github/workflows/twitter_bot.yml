@@ -14,10 +14,10 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3  # バージョンをv3に更新
 
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4  # バージョンをv4に更新
       with:
         python-version: '3.x'
 
@@ -34,4 +34,3 @@ jobs:
         DROPBOX_TOKEN: ${{ secrets.DROPBOX_TOKEN }}
       run: |
         python twitter_bot.py
-
