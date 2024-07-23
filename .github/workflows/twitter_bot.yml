@@ -2,28 +2,26 @@ name: Twitter Bot
 
 on:
   schedule:
-    - cron: '0 5 * * *'   # 毎日5時に実行
-    - cron: '0 11 * * *'  # 毎日11時に実行
-    - cron: '0 17 * * *'  # 毎日17時に実行
-    - cron: '0 23 * * *'  # 毎日23時に実行
-  workflow_dispatch:      # 手動トリガーを追加
+    - cron: '0 5,11,17,23 * * *'  # 毎日5時、11時、17時、23時に実行
+  workflow_dispatch:
 
 jobs:
-  run-bot:
+  tweet:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3  # バージョンをv3に更新
+    - name: Check out repository
+      uses: actions/checkout@v3
 
     - name: Set up Python
-      uses: actions/setup-python@v4  # バージョンをv4に更新
+      uses: actions/setup-python@v4
       with:
         python-version: '3.x'
 
     - name: Install dependencies
       run: |
-        pip install tweepy dropbox
+        python -m pip install --upgrade pip
+        pip install tweepy
 
     - name: Run Twitter bot
       env:
@@ -31,6 +29,4 @@ jobs:
         CONSUMER_SECRET: ${{ secrets.CONSUMER_SECRET }}
         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
-        DROPBOX_TOKEN: ${{ secrets.DROPBOX_TOKEN }}
-      run: |
-        python twitter_bot.py
+      run: python twitter_bot.py
