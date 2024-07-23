@@ -1,0 +1,36 @@
+name: Twitter Bot
+
+on:
+  schedule:
+    - cron: '0 5 * * *'   # 毎日5時に実行
+    - cron: '0 11 * * *'  # 毎日11時に実行
+    - cron: '0 17 * * *'  # 毎日17時に実行
+    - cron: '0 23 * * *'  # 毎日23時に実行
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        pip install tweepy dropbox
+
+    - name: Run Twitter bot
+      env:
+        CONSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
+        CONSUMER_SECRET: ${{ secrets.CONSUMER_SECRET }}
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
+        DROPBOX_TOKEN: ${{ secrets.DROPBOX_TOKEN }}
+      run: |
+        python twitter_bot.py
+
