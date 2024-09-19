@@ -1,9 +1,10 @@
 name: Twitter Bot
 
 on:
-  schedule:
-    - cron: '0 5,11,17,23 * * *'  # 毎日5時、11時、17時、23時に実行
+  # schedule:
+  #   - cron: '0 5,11,17,23 * * *'  # スケジュールを無効化
   workflow_dispatch:
+
 
 jobs:
   tweet:
